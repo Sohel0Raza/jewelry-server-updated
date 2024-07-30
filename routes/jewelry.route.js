@@ -5,12 +5,12 @@ import {
   getAllJewelry,
   updateJewelry,
 } from "../controllers.js/jewelry.controller.js";
-const router = express.Router();
+const jewelryRouter = express.Router();
 
-router.get("/", getAllJewelry);
-router.get("/:id", getAllJewelry);
-router.post("/", createJewelry);
-router.delete("/:id", deleteJewelry);
-router.put("/:id", updateJewelry);
+jewelryRouter.get("/", getAllJewelry);
+jewelryRouter.get("/:id", getAllJewelry);
+jewelryRouter.post("/", createJewelry);
+jewelryRouter.delete("/:id", deleteJewelry);
+jewelryRouter.put("/:id", updateJewelry);
 
-export default router;
+export default jewelryRouter;

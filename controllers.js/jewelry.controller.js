@@ -7,7 +7,9 @@ export const getAllJewelry = async (req, res) => {
     const jewelrys = await jewelryModel.find();
     res.status(200).send(jewelrys);
   } catch (error) {
-    console.log(error);
+    res.status(500).send({
+      message:error.message
+    })
   }
 };
 
