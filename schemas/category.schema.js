@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
 
 const categorySchema = new Schema({
-    category:{type:String, required:true}
+    name:{type:String, required:true, unique: true}
 })
 
 export default categorySchema;

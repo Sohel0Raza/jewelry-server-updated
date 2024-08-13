@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import categorySchema from "../schemas/category.schema.js";
 
-const categoryModel = mongoose.model("categorys", categorySchema);
+const categoryModel = mongoose.model("category", categorySchema);
 
 export const getCategory = async (req, res) => {
   try {
@@ -16,12 +16,13 @@ export const getCategory = async (req, res) => {
 
 export const createCategory = async (req, res) => {
   try {
-    const newCategory = req.body;
-    const categoryDoc = new categoryModel({
-      category: newCategory.category,
-    });
-    const result = await categoryDoc.save();
-    res.status(200).send(result);
+    const category = req.body;
+    const categoryDoc = new categoryModel();
+
+    categoryDoc.name = category.name;
+
+    const createResponse = await categoryDoc.save();
+    res.status(200).send(createResponse);
   } catch (error) {
     res.status(500).send({
       message: error.message,
@@ -31,20 +32,22 @@ export const createCategory = async (req, res) => {
 
 export const updateCategory = async (req, res) => {
   try {
-    const id = req.params.id;
-    const option = { upsert: true };
+    const id = req?.params?.id;
+    const option = { 
+      upsert: true,
+      returnDocument:'after'
+     };
     const category = req.body;
+
     const updatedCategory = {
       $set: {
-        category: category.category,
+        name: category.name,
       },
     };
-    const result = await categoryModel.findByIdAndUpdate(
-      id,
-      updateCategory,
-      option
-    );
-    res.status(200).send(result);
+
+    const updateResponse = await categoryModel.findByIdAndUpdate(id, updatedCategory, option)
+
+    res.status(200).send(updateResponse);
   } catch (error) {
     res.status(500).send({
       message: error.message,
