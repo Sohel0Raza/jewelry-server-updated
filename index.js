@@ -20,7 +20,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 
 async function run() {
   // Connect to mongoose
-  await mongoose.connect(uri, {
+   mongoose.connect(uri, {
     autoIndex: true, //make this also true
   });
 }
@@ -28,7 +28,9 @@ async function run() {
 run()
   .then(() => console.log("connect mongoose"))
   .catch((e) => console.log(e));
-
+  app.get("/", (req, res) => {
+    res.send("Jewelry shop server is running...");
+  });
 app.listen(port, () => {
   console.log(`Sparkle Gems server is running on port:${port}`);
 });
